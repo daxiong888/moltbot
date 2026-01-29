@@ -277,6 +277,11 @@ const FIELD_LABELS: Record<string, string> = {
   "commands.debug": "Allow /debug",
   "commands.restart": "Allow Restart",
   "commands.useAccessGroups": "Use Access Groups",
+  "commands.codex": "Codex Command",
+  "commands.codex.enabled": "Allow /codex",
+  "commands.codex.command": "Codex Command Line",
+  "commands.codex.workdir": "Codex Command Workdir",
+  "commands.codex.argsTemplate": "Codex Args Template",
   "ui.seamColor": "Accent Color",
   "ui.assistant.name": "Assistant Name",
   "ui.assistant.avatar": "Assistant Avatar",
@@ -593,6 +598,14 @@ const FIELD_HELP: Record<string, string> = {
   "commands.debug": "Allow /debug chat command for runtime-only overrides (default: false).",
   "commands.restart": "Allow /restart and gateway restart tool actions (default: false).",
   "commands.useAccessGroups": "Enforce access-group allowlists/policies for commands.",
+  "commands.codex": "Configure /codex command (requires commands.codex.enabled=true).",
+  "commands.codex.enabled":
+    "Enable /codex command to run a configured command for Codex tasks (default: false).",
+  "commands.codex.command":
+    "Command to run for /codex (example: bin/clawdbot-obsidian-research.sh).",
+  "commands.codex.workdir": "Working directory for /codex (default: agent workspace).",
+  "commands.codex.argsTemplate":
+    "Optional args template for /codex (supports {topic} placeholder).",
   "session.dmScope":
     'DM session scoping: "main" keeps continuity; "per-peer", "per-channel-peer", or "per-account-channel-peer" isolates DM history (recommended for shared inboxes/multi-account).',
   "session.identityLinks":

@@ -162,6 +162,22 @@ function buildChatCommands(): ChatCommandDefinition[] {
       ],
     }),
     defineChatCommand({
+      key: "codex",
+      nativeName: "codex",
+      description: "Run a Codex task (configured command).",
+      textAlias: "/codex",
+      category: "tools",
+      args: [
+        {
+          name: "topic",
+          description: "Task topic or prompt",
+          type: "string",
+          required: true,
+          captureRemaining: true,
+        },
+      ],
+    }),
+    defineChatCommand({
       key: "status",
       nativeName: "status",
       description: "Show current status.",

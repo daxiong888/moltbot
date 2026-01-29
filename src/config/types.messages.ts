@@ -107,6 +107,19 @@ export type CommandsConfig = {
   restart?: boolean;
   /** Enforce access-group allowlists/policies for commands (default: true). */
   useAccessGroups?: boolean;
+  /** Codex command settings (opt-in). */
+  codex?: CodexCommandConfig;
+};
+
+export type CodexCommandConfig = {
+  /** Enable /codex command (default: false). */
+  enabled?: boolean;
+  /** Command to run when /codex is invoked. */
+  command?: string;
+  /** Working directory for the command (defaults to agent workspace). */
+  workdir?: string;
+  /** Optional args template; supports "{topic}" placeholder. */
+  argsTemplate?: string;
 };
 
 export type ProviderCommandsConfig = {

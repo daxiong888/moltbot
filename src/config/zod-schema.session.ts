@@ -112,6 +112,14 @@ export const CommandsSchema = z
     debug: z.boolean().optional(),
     restart: z.boolean().optional(),
     useAccessGroups: z.boolean().optional(),
+    codex: z
+      .object({
+        enabled: z.boolean().optional(),
+        command: z.string().optional(),
+        workdir: z.string().optional(),
+        argsTemplate: z.string().optional(),
+      })
+      .optional(),
   })
   .strict()
   .optional()
