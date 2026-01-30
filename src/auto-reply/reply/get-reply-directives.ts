@@ -303,8 +303,17 @@ export async function resolveReplyDirectives(params: {
   sessionCtx.Body = cleanedBody;
   sessionCtx.BodyStripped = cleanedBody;
 
+  // Note: `provider` in this scope is the *model provider* (e.g. openai/right), not the chat channel.
+  // Elevated gating needs the chat channel (telegram/discord/...), which comes from the message context.
+  // Native commands (e.g. Telegram slash) may not populate ctx.Provider, so prefer Surface/OriginatingChannel.
   const messageProviderKey =
-    sessionCtx.Provider?.trim().toLowerCase() ?? ctx.Provider?.trim().toLowerCase() ?? "";
+    sessionCtx.OriginatingChannel?.trim().toLowerCase() ||
+    ctx.OriginatingChannel?.trim().toLowerCase() ||
+    sessionCtx.Surface?.trim().toLowerCase() ||
+    ctx.Surface?.trim().toLowerCase() ||
+    sessionCtx.Provider?.trim().toLowerCase() ||
+    ctx.Provider?.trim().toLowerCase() ||
+    "";
   const elevated = resolveElevatedPermissions({
     cfg,
     agentId,

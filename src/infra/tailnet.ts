@@ -28,7 +28,15 @@ export function listTailnetAddresses(): TailnetAddresses {
   const ipv4: string[] = [];
   const ipv6: string[] = [];
 
-  const ifaces = os.networkInterfaces();
+  let ifaces: ReturnType<typeof os.networkInterfaces>;
+  try {
+    ifaces = os.networkInterfaces();
+  } catch {
+    // In some constrained environments (containers/sandboxes), Node's underlying
+    // interface enumeration can throw (e.g. uv_interface_addresses).
+    // Treat that as "no tailnet detected" instead of crashing the CLI.
+    return { ipv4: [], ipv6: [] };
+  }
   for (const entries of Object.values(ifaces)) {
     if (!entries) continue;
     for (const e of entries) {

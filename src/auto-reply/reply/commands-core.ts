@@ -15,7 +15,6 @@ import {
 } from "./commands-info.js";
 import { handleAllowlistCommand } from "./commands-allowlist.js";
 import { handleApproveCommand } from "./commands-approve.js";
-import { handleCodexCommand, handleCodexResetCleanup } from "./commands-codex.js";
 import { handleSubagentsCommand } from "./commands-subagents.js";
 import { handleModelsCommand } from "./commands-models.js";
 import { handleTtsCommands } from "./commands-tts.js";
@@ -38,7 +37,6 @@ const HANDLERS: CommandHandler[] = [
   // Plugin commands are processed first, before built-in commands
   handlePluginCommand,
   handleBashCommand,
-  handleCodexCommand,
   handleActivationCommand,
   handleSendPolicyCommand,
   handleUsageCommand,
@@ -81,9 +79,6 @@ export async function handleCommands(params: HandleCommandsParams): Promise<Comm
       cfg: params.cfg, // Pass config for LLM slug generation
     });
     await triggerInternalHook(hookEvent);
-    await handleCodexResetCleanup(params.sessionKey).catch((err) => {
-      logVerbose(`codex cleanup failed: ${err instanceof Error ? err.message : String(err)}`);
-    });
 
     // Send hook messages immediately if present
     if (hookEvent.messages.length > 0) {

@@ -30,4 +30,13 @@ describe("tailnet address detection", () => {
     expect(out.ipv4).toEqual(["100.123.224.76"]);
     expect(out.ipv6).toEqual(["fd7a:115c:a1e0::8801:e04c"]);
   });
+
+  it("returns empty lists when interface detection throws", () => {
+    vi.spyOn(os, "networkInterfaces").mockImplementation(() => {
+      throw new Error("uv_interface_addresses failed");
+    });
+
+    const out = listTailnetAddresses();
+    expect(out).toEqual({ ipv4: [], ipv6: [] });
+  });
 });
